@@ -68,8 +68,8 @@ void Application::events() {
 }
 
 void Application::passaEventoLaunch(EVENTO ev) {
-  cout << "ev.x -> " << ev.x << " ev.y -> " << ev.y << " premuto -> "
-       << ev.premuto << endl;
+  // cout << "ev.x -> " << ev.x << " ev.y -> " << ev.y << " premuto -> "
+  //  << ev.premuto << endl;
   this->attivi[ev.x][ev.y] = ev.premuto;
 }
 

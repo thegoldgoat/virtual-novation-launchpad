@@ -108,7 +108,7 @@ EVENTO Launchpad::mappaMidi(std::vector<unsigned char> message) {
   } else if (message[0] == 176) {
     return {message[1] - 104, 0, (message[2] != 0)};
   } else {
-    cout << "Midi sconosciuto -> " << message[0] << endl;
+    cout << "Midi sconosciuto -> " << (int)message[0] << endl;
     return {-1, -1, false};
   }
 }
