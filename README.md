@@ -1,6 +1,6 @@
 # Virtual Novation launchpad
 Simple virtualization of Novation Launchpad MIDI controller.
-Missing the top and right pads.
+Missing colors.
 
 ![screenshot](./screenshots/screen1.png)
 

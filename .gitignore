@@ -1,2 +1,2 @@
-eseguibile.out
-obj/*
+*.o
+*.out
