@@ -34,7 +34,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 
 clean:
 	rm $(OBJDIR) -rf
-	rm OUT -f
+	rm $(OUT) -f
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
