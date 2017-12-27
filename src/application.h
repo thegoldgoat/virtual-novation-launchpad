@@ -4,9 +4,8 @@
 #include "sdlApp.h"
 #include <rtmidi/RtMidi.h>
 
-#define DIM_LAUNCH 8
+#define DIM_LAUNCH 9
 #define PADDING_TASTI 5
-
 
 void launchAppCallback(EVENTO);
 
@@ -20,21 +19,15 @@ public:
   void passaEventoLaunch(EVENTO);
 
 private:
-  // quadrati accesi
+  // quadrati accesi (griglia 9x9)
   bool attivi[DIM_LAUNCH][DIM_LAUNCH];
 
-  // Cerchi accesi sopra
-  bool attiviSopra[DIM_LAUNCH];
   // Classe del launchpad virtuale
   Launchpad *launchpad = new Launchpad(launchAppCallback);
 
   // coordinate del tasto premuto col mouse (da rilasciare al rilascio)
   int premutox;
   int premutoy;
-
-  // Rettangolo dove sta la matrice
-  SDL_Rect matrice;
-
 };
 
 extern Application *app;

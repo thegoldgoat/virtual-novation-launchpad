@@ -25,7 +25,9 @@ public:
   // Invia un segnale midi al launchpad
   void send(int x, int y, midiBitT velocity);
   // Invia un segnale midi ai tasti a destra
-  void sendDestra(int y, midiBitT velocity);
+  // void sendDestra(int y, midiBitT velocity);
+  // Invia un segnale midi ai tasti a sopra
+  void sendTop(int x, midiBitT velocity);
   // Cancella tutte le celle del launchpad
   void cancella();
 
