@@ -96,20 +96,25 @@ void Launchpad::cancella() {
 EVENTO Launchpad::mappaMidi(std::vector<unsigned char> message) {
   // Messagge[0] vale 0 se non si ha niente in input. almeno nel launchpad.
   if (message[0] == 0) {
-    return {-1, -1, false};
+    return {-1, -1, false, false};
   }
-  // Converti il valore midi in coordinate del launchpad
-  if (message[0] == KEY) {
+  switch (message[0]) {
+  case KEY:
     int x, y;
     x = message[1] % 16;
     y = (message[1] - x) / 16;
-    cout << "x -> " << x << "y -> " << y << endl;
-    return {x, y + 1, (message[2] != 0)};
-  } else if (message[0] == 176) {
-    return {message[1] - 104, 0, (message[2] != 0)};
-  } else {
+    // cout << "x -> " << x << " y -> " << y << endl;
+    return {x, y + 1, (message[2] != 0), false};
+    break;
+  case 176:
+    if (message[1] == 0)
+      return {1, 1, true, true}; // cancella!
+    else
+      return {message[1] - 104, 0, (message[2] != 0), false};
+    break;
+  default:
     cout << "Midi sconosciuto -> " << (int)message[0] << endl;
-    return {-1, -1, false};
+    return {-1, -1, false, false};
   }
 }
 

@@ -10,6 +10,7 @@ struct EVENTO {
   int x;
   int y;
   bool premuto; // Vero se premuto, falso se rilasciato
+  bool cancella; // Vero se il launchpad si deve cancellare
 };
 
 inline void launchpapMidiCallback(double, std::vector<unsigned char> *, void *);
