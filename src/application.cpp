@@ -70,7 +70,15 @@ void Application::events() {
 void Application::passaEventoLaunch(EVENTO ev) {
   // cout << "ev.x -> " << ev.x << " ev.y -> " << ev.y << " premuto -> "
   //  << ev.premuto << endl;
-  this->attivi[ev.x][ev.y] = ev.premuto;
+  if (ev.cancella) {
+    // Cancella tutte le celle
+    for (int i = 0; i < DIM_LAUNCH; i++) {
+      for (int j = 0; j < DIM_LAUNCH; j++) {
+        this->attivi[i][j] = false;
+      }
+    }
+  } else
+    this->attivi[ev.x][ev.y] = ev.premuto;
 }
 
 void launchAppCallback(EVENTO ev) { app->passaEventoLaunch(ev); }
