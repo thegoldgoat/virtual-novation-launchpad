@@ -7,10 +7,12 @@ using namespace std;
 
 Application *app;
 
+const SDL_Color coloreSpento = {102, 102, 102};
+
 Application::Application() : SDLApp(WINDOW_TITLE, W, H, FPS) {
   for (int i = 0; i < DIM_LAUNCH; i++) {
     for (int j = 0; j < DIM_LAUNCH; j++)
-      this->attivi[i][j] = false;
+      this->attivi[i][j] = coloreSpento;
   }
 }
 
@@ -29,12 +31,8 @@ void Application::draw() {
         continue;
       temp.x = i * offsetx + PADDING_TASTI;
       temp.y = j * offsety + PADDING_TASTI;
-      if (this->attivi[i][j])
-        roundedBoxRGBA(renderer, temp.x, temp.y, temp.x + temp.w,
-                       temp.y + temp.h, 10, 255, 51, 51, 255);
-      else
-        roundedBoxRGBA(renderer, temp.x, temp.y, temp.x + temp.w,
-                       temp.y + temp.h, 10, 102, 102, 102, 255);
+      roundedBoxRGBA(renderer, temp.x, temp.y, temp.x + temp.w, temp.y + temp.h,
+                     10, attivi[i][j].r, attivi[i][j].g, attivi[i][j].b, 255);
     }
 }
 
@@ -74,11 +72,13 @@ void Application::passaEventoLaunch(EVENTO ev) {
     // Cancella tutte le celle
     for (int i = 0; i < DIM_LAUNCH; i++) {
       for (int j = 0; j < DIM_LAUNCH; j++) {
-        this->attivi[i][j] = false;
+        this->attivi[i][j] = coloreSpento;
       }
     }
-  } else
-    this->attivi[ev.x][ev.y] = ev.premuto;
+  } else {
+    this->attivi[ev.x][ev.y] =
+        ev.premuto == true ? this->midiToColor(ev.velocity) : coloreSpento;
+  }
 }
 
 void launchAppCallback(EVENTO ev) { app->passaEventoLaunch(ev); }

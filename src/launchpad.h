@@ -7,10 +7,20 @@
 typedef unsigned char midiBitT;
 
 struct EVENTO {
+  EVENTO(int _x, int _y, bool _premuto, bool _cancella, midiBitT _velocity)
+      : x(_x), y(_y), premuto(_premuto), cancella(_cancella),
+        velocity(_velocity) {}
+
+  // Posizione x nella matrice 9x9
   int x;
+  // Posizione y nella matrice 9x9
   int y;
-  bool premuto; // Vero se premuto, falso se rilasciato
-  bool cancella; // Vero se il launchpad si deve cancellare
+  // Vero se premuto, falso se rilasciato
+  bool premuto;
+  // Vero se il launchpad si deve cancellare
+  bool cancella;
+  // Velocity MIDI
+  midiBitT velocity;
 };
 
 inline void launchpapMidiCallback(double, std::vector<unsigned char> *, void *);
