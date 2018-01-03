@@ -1,6 +1,6 @@
 # Virtual Novation launchpad
 Simple virtualization of Novation Launchpad MIDI controller.
-No color support, every color on the real Novation Launchpad is printed as red.
+Missing double buffer support.
 
 ![screenshot](./screenshots/screen1.png)
 
