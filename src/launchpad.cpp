@@ -11,15 +11,8 @@
 #define HEIGHT_LAUNCHPAD 9
 #define ROSSO_MIDI 10 // Valore MIDI per il Launchpad per avere il rosso
 
-// const int mappa[WIDTH_LAUNCHPAD][HEIGHT_LAUNCHPAD] = {
-//     {0, 1, 2, 3, 4, 5, 6, 7},
-//     {16, 17, 18, 19, 20, 21, 22, 23},
-//     {32, 33, 34, 35, 36, 37, 38, 39},
-//     {48, 49, 50, 51, 52, 53, 54, 55},
-//     {64, 65, 66, 67, 68, 69, 70, 71},
-//     {80, 81, 82, 83, 84, 85, 86, 87},
-//     {96, 97, 98, 99, 100, 101, 102, 103},
-//     {112, 113, 114, 115, 116, 117, 118, 119}};
+const EVENTO EVENTO_ERRORE = EVENTO(-1, -1, false, false, 0);
+const EVENTO EVENTO_CANCELLA = EVENTO(1, 1, true, true, 0);
 
 using namespace std;
 
@@ -96,7 +89,7 @@ void Launchpad::cancella() {
 EVENTO Launchpad::mappaMidi(std::vector<unsigned char> message) {
   // Messagge[0] vale 0 se non si ha niente in input. almeno nel launchpad.
   if (message[0] == 0) {
-    return {-1, -1, false, false};
+    return EVENTO_ERRORE;
   }
   switch (message[0]) {
   case KEY:
@@ -104,17 +97,17 @@ EVENTO Launchpad::mappaMidi(std::vector<unsigned char> message) {
     x = message[1] % 16;
     y = (message[1] - x) / 16;
     // cout << "x -> " << x << " y -> " << y << endl;
-    return {x, y + 1, (message[2] != 0), false};
+    return EVENTO(x, y + 1, (message[2] != 0), false, message[2]);
     break;
   case 176:
     if (message[1] == 0)
-      return {1, 1, true, true}; // cancella!
+      return EVENTO_CANCELLA; // cancella!
     else
-      return {message[1] - 104, 0, (message[2] != 0), false};
+      return EVENTO(message[1] - 104, 0, (message[2] != 0), false, message[2]);
     break;
   default:
     cout << "Midi sconosciuto -> " << (int)message[0] << endl;
-    return {-1, -1, false, false};
+    return EVENTO_ERRORE;
   }
 }
 
