@@ -38,11 +38,11 @@ private:
     // Ignoring flags for now
     midiBitT red = midiBit % 16;
     midiBitT green = (midiBit - red) / 16;
-    std::cout << "Red -> " << (int)red << " green -> " << (int)green
-              << std::endl;
+    // std::cout << "Red -> " << (int)red << " green -> " << (int)green
+    //           << std::endl;
     // Normalize values: from 4 bit to 8 bit (adding a bit of brightness)
-    red += 2;
-    green += 2;
+    red += 4;
+    green += 4;
     return {red * 16, green * 16, 0};
   }
 };

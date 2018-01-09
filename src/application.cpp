@@ -24,8 +24,28 @@ void Application::draw() {
   double offsety = (double)h / DIM_LAUNCH;
   temp.w = offsetx - PADDING_TASTI * 2;
   temp.h = offsety - PADDING_TASTI * 2;
-  for (int i = 0; i < DIM_LAUNCH; i++)
-    for (int j = 0; j < DIM_LAUNCH; j++) {
+  double radCircles = offsetx > offsety ? offsety / 2 : offsetx / 2;
+  radCircles -= PADDING_TASTI;
+  // Top and right
+  for (int i = 0; i < DIM_LAUNCH - 1; i++) {
+    // Top
+    temp.x = offsetx / 2 + offsetx * i;
+    temp.y = PADDING_TASTI + offsety / 2;
+    filledCircleRGBA(renderer, temp.x, temp.y, radCircles, attivi[i][0].r,
+                     attivi[i][0].g, attivi[i][0].b, 255);
+    // Right
+    temp.x = w - offsetx / 2;
+    temp.y = offsety * (i + 1) + offsety / 2;
+    // Because the indexes to the right start from 1
+    i++;
+    filledCircleRGBA(renderer, temp.x, temp.y, radCircles, attivi[8][i].r,
+                     attivi[8][i].g, attivi[8][i].b, 255);
+    i--;
+  }
+
+  // Central matrix
+  for (int i = 0; i < DIM_LAUNCH - 1; i++)
+    for (int j = 1; j < DIM_LAUNCH; j++) {
       // Non disegnare l'angolo in alto a destra
       if (i == 8 && j == 0)
         continue;
